@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/evidence_record.schema.json",
+  "title": "EvidenceRecord",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "action_hash",
+    "artifact_type",
+    "artifact_ref"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string"
+    },
+    "action_hash": {
+      "type": "string"
+    },
+    "artifact_type": {
+      "type": "string"
+    },
+    "artifact_ref": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

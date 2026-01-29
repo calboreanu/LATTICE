@@ -1,0 +1,23 @@
+{
+  "policy_id": "LATTICE_POLICY_MIN",
+  "version": "v1-min",
+  "allowed_targets": [
+    "example.local"
+  ],
+  "permitted_tools": {
+    "DEFAULT": [
+      "dns_query"
+    ]
+  },
+  "thresholds": {
+    "autonomous": 80,
+    "hitl": 50,
+    "escalate": 45
+  },
+  "rules": [
+    {
+      "id": "R_DEFAULT",
+      "then": "ALLOW"
+    }
+  ]
+}

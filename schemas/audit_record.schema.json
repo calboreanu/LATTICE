@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/audit_record.schema.json",
+  "title": "AuditRecord",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "action_hash",
+    "policy_id",
+    "policy_version",
+    "verdict",
+    "confidence",
+    "reason_codes"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string"
+    },
+    "action_hash": {
+      "type": "string"
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "ALLOW",
+        "BLOCK",
+        "ESCALATE"
+      ]
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prev_record_hash": {
+      "type": "string"
+    },
+    "record_hash": {
+      "type": "string"
+    },
+    "signature": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
