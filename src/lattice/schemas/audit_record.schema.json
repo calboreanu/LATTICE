@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/audit_record.schema.json",
+  "title": "AuditRecord",
+  "type": "object",
+  "required": [
+    "record_id",
+    "sequence_number",
+    "timestamp",
+    "event_type",
+    "actor_id",
+    "payload_hash",
+    "prev_hash",
+    "record_hash",
+    "action_hash",
+    "policy_id",
+    "policy_version",
+    "verdict",
+    "confidence",
+    "reason_codes",
+    "signature"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string"
+    },
+    "sequence_number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "actor_id": {
+      "type": "string"
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "prev_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "action_hash": {
+      "type": "string"
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "ALLOW",
+        "BLOCK",
+        "ESCALATE"
+      ]
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prev_record_hash": {
+      "type": "string"
+    },
+    "record_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "signature": {
+      "type": "object",
+      "oneOf": [
+        {
+          "required": ["alg", "key_id", "sig_b64"],
+          "properties": {
+            "alg": {
+              "type": "string"
+            },
+            "key_id": {
+              "type": "string"
+            },
+            "sig_b64": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

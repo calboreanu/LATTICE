@@ -1,0 +1,42 @@
+{
+  "bundle_id": "CI-ESCALATE-002",
+  "target": "SUB-47-BKR-002",
+  "tool": "modify_relay_settings",
+  "tool_class": "OTHER",
+  "parameters": {
+    "action": "modify_protection",
+    "equipment_id": "SUB-47-BKR-002",
+    "maintenance_phase": "relay_reconfiguration",
+    "upstream_isolation_verified": true,
+    "downstream_load_transferred": true,
+    "work_permit_active": true,
+    "restoration_procedure_confirmed": false,
+    "backup_feed_status": "unknown",
+    "irreversible": true
+  },
+  "confidence_scores": {
+    "objective_clarity": 0.90,
+    "tool_specificity": 0.85,
+    "constraint_completeness": 0.70,
+    "risk_assessment_depth": 0.55,
+    "precedent_availability": 0.80,
+    "composite": 0.76
+  },
+  "scope_tags": [
+    "maintenance_window",
+    "SUB-47",
+    "relay_protection",
+    "irreversible_action"
+  ],
+  "time_bound": "2026-04-07T06:00:00Z",
+  "data_handling": "SENSITIVE",
+  "evidence_plan": {
+    "evidence_level": "FULL",
+    "artifacts": [
+      "switching_order_SUB47_20260407",
+      "relay_config_backup_pending",
+      "work_permit_WP-2026-0407-001"
+    ]
+  },
+  "notes": "Protection relay setting change on SUB-47-BKR-002. Isolation verified but restoration procedure NOT yet confirmed and backup feed status unknown. Action marked irreversible — should trigger ESCALATE regardless of confidence."
+}

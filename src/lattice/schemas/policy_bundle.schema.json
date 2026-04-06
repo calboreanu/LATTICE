@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/policy_bundle.schema.json",
+  "title": "PolicyBundle",
+  "type": "object",
+  "required": [
+    "policy_id",
+    "version",
+    "allowed_targets",
+    "permitted_tools",
+    "rules",
+    "thresholds"
+  ],
+  "properties": {
+    "policy_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "allowed_targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "permitted_tools": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TARGET_DENYLIST",
+              "TOOL_DENYLIST",
+              "SCOPE_TAG_DENYLIST",
+              "TARGET_ALLOWLIST",
+              "TOOL_ALLOWLIST"
+            ]
+          },
+          "effect": {
+            "type": "string",
+            "enum": [
+              "BLOCK",
+              "ESCALATE",
+              "SCORE"
+            ],
+            "default": "BLOCK"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "penalty": {
+            "type": "number"
+          },
+          "reason_code": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "required": [
+        "autonomous",
+        "hitl",
+        "escalate"
+      ],
+      "properties": {
+        "autonomous": {
+          "type": "number"
+        },
+        "hitl": {
+          "type": "number"
+        },
+        "escalate": {
+          "type": "number"
+        }
+      }
+    },
+    "scope_limits": {
+      "type": "object"
+    },
+    "signature": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

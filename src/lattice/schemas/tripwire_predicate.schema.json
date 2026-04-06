@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/tripwire_predicate.schema.json",
+  "title": "TripwirePredicate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "predicate_id",
+    "metric",
+    "operator",
+    "threshold",
+    "on_trigger",
+    "window"
+  ],
+  "properties": {
+    "predicate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metric": {
+      "type": "string",
+      "enum": [
+        "ARI",
+        "PRDS",
+        "TMD",
+        "RATE",
+        "VOLUME",
+        "DURATION",
+        "ERROR_RATE",
+        "UNAUTHORIZED_TOOL_ATTEMPTS"
+      ]
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "GT",
+        "GTE",
+        "LT",
+        "LTE",
+        "EQ",
+        "NEQ"
+      ]
+    },
+    "threshold": {
+      "type": "number"
+    },
+    "on_trigger": {
+      "type": "string",
+      "enum": [
+        "CONTINUE",
+        "ESCALATE",
+        "HALT"
+      ]
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "size"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "EVENT_COUNT",
+            "TIME_SECONDS"
+          ]
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

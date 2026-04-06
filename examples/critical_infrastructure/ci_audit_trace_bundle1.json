@@ -1,0 +1,40 @@
+{
+  "test_case": 1,
+  "name": "Bundle 1 \u2014 Routine breaker opening (expected: ALLOW)",
+  "gate_verdict": "ALLOW",
+  "audit_record": {
+    "event_type": "GOVERNANCE_VERDICT",
+    "actor_id": "lattice.execution_gate",
+    "unit_hash": "490096037bac6ae2563946109da4d7c95f08d80feae936588c1b480613e63a82",
+    "action_hash": "1f9b7decd44d5bd0d4c0d29753ea17901d81b3f588b080ef4104ebe90914809e",
+    "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+    "policy_version": "v1.0-reviewer-demo",
+    "verdict": "ALLOW",
+    "confidence": 95.0,
+    "reason_codes": [
+      "POLICY_ALLOW"
+    ],
+    "record_id": "019d6348-97a9-7c3e-8a8d-0041da3a2611",
+    "timestamp": "2026-04-06T14:53:15.049640Z",
+    "sequence_number": 1,
+    "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "prev_record_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "payload": {
+      "unit_hash": "490096037bac6ae2563946109da4d7c95f08d80feae936588c1b480613e63a82",
+      "action_hash": "1f9b7decd44d5bd0d4c0d29753ea17901d81b3f588b080ef4104ebe90914809e",
+      "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+      "policy_version": "v1.0-reviewer-demo",
+      "verdict": "ALLOW",
+      "confidence": 95.0,
+      "reason_codes": [
+        "POLICY_ALLOW"
+      ]
+    },
+    "payload_hash": "9cad6c0f9e41199398809affa32ec1b983d334a3d87926804c8f48f0b0ccac6a",
+    "record_hash": "a40eb46a50a28e44c3978d138f50cbee7191262d7078ff54096af22056eb8705",
+    "signature": {
+      "type": "stub",
+      "note": "Unsigned local audit record."
+    }
+  }
+}

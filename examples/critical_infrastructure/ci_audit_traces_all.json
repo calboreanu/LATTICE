@@ -1,0 +1,124 @@
+[
+  {
+    "test_case": 1,
+    "name": "Bundle 1 \u2014 Routine breaker opening (expected: ALLOW)",
+    "gate_verdict": "ALLOW",
+    "audit_record": {
+      "event_type": "GOVERNANCE_VERDICT",
+      "actor_id": "lattice.execution_gate",
+      "unit_hash": "490096037bac6ae2563946109da4d7c95f08d80feae936588c1b480613e63a82",
+      "action_hash": "1f9b7decd44d5bd0d4c0d29753ea17901d81b3f588b080ef4104ebe90914809e",
+      "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+      "policy_version": "v1.0-reviewer-demo",
+      "verdict": "ALLOW",
+      "confidence": 95.0,
+      "reason_codes": [
+        "POLICY_ALLOW"
+      ],
+      "record_id": "019d6348-97a9-7c3e-8a8d-0041da3a2611",
+      "timestamp": "2026-04-06T14:53:15.049640Z",
+      "sequence_number": 1,
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "prev_record_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "payload": {
+        "unit_hash": "490096037bac6ae2563946109da4d7c95f08d80feae936588c1b480613e63a82",
+        "action_hash": "1f9b7decd44d5bd0d4c0d29753ea17901d81b3f588b080ef4104ebe90914809e",
+        "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+        "policy_version": "v1.0-reviewer-demo",
+        "verdict": "ALLOW",
+        "confidence": 95.0,
+        "reason_codes": [
+          "POLICY_ALLOW"
+        ]
+      },
+      "payload_hash": "9cad6c0f9e41199398809affa32ec1b983d334a3d87926804c8f48f0b0ccac6a",
+      "record_hash": "a40eb46a50a28e44c3978d138f50cbee7191262d7078ff54096af22056eb8705",
+      "signature": {
+        "type": "stub",
+        "note": "Unsigned local audit record."
+      }
+    }
+  },
+  {
+    "test_case": 2,
+    "name": "Bundle 2 \u2014 Relay protection change, incomplete contingency (expected: ESCALATE)",
+    "gate_verdict": "BLOCK",
+    "audit_record": {
+      "event_type": "GOVERNANCE_VERDICT",
+      "actor_id": "lattice.execution_gate",
+      "unit_hash": "7974d69e90cc4243c1c3e8cc16be2ca41aac0071c5001c810aa6b0d1e06b6d1f",
+      "action_hash": "33b2f4eccc449b31cddb7b4f622b77757c4f5bd5f3ff4e893df7831c17a498ba",
+      "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+      "policy_version": "v1.0-reviewer-demo",
+      "verdict": "ESCALATE",
+      "confidence": 76.0,
+      "reason_codes": [
+        "IRREVERSIBLE_ACTION_REQUIRES_HUMAN_REVIEW"
+      ],
+      "record_id": "019d6348-97a9-7a1f-8b30-73635abc0ca6",
+      "timestamp": "2026-04-06T14:53:15.049983Z",
+      "sequence_number": 1,
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "prev_record_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "payload": {
+        "unit_hash": "7974d69e90cc4243c1c3e8cc16be2ca41aac0071c5001c810aa6b0d1e06b6d1f",
+        "action_hash": "33b2f4eccc449b31cddb7b4f622b77757c4f5bd5f3ff4e893df7831c17a498ba",
+        "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+        "policy_version": "v1.0-reviewer-demo",
+        "verdict": "ESCALATE",
+        "confidence": 76.0,
+        "reason_codes": [
+          "IRREVERSIBLE_ACTION_REQUIRES_HUMAN_REVIEW"
+        ]
+      },
+      "payload_hash": "9bb2e5e13db4288727a8b794129176a5a97efc350bbd41a3642c39e8da56b107",
+      "record_hash": "b960c5e8cf77e946bf5d2762e5c7e993d6388ac8b67cc0025c00cf723f9e3a05",
+      "signature": {
+        "type": "stub",
+        "note": "Unsigned local audit record."
+      }
+    }
+  },
+  {
+    "test_case": 3,
+    "name": "Bundle 3 \u2014 Out-of-scope target (expected: BLOCK)",
+    "gate_verdict": "BLOCK",
+    "audit_record": {
+      "event_type": "GOVERNANCE_VERDICT",
+      "actor_id": "lattice.execution_gate",
+      "unit_hash": "51a981607fa6ef86b2bfd0e293de9b7c48d0e57ceb764311824351bd5730a484",
+      "action_hash": "7d202ce83c9a0db2e61704c2193522f070c23e56d0685c7dee11e3be3820c222",
+      "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+      "policy_version": "v1.0-reviewer-demo",
+      "verdict": "BLOCK",
+      "confidence": 40.0,
+      "reason_codes": [
+        "TARGET_OUT_OF_SCOPE",
+        "TARGET_NOT_IN_WORK_ORDER"
+      ],
+      "record_id": "019d6348-97aa-7b57-8325-31b5db5adeb4",
+      "timestamp": "2026-04-06T14:53:15.050238Z",
+      "sequence_number": 1,
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "prev_record_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "payload": {
+        "unit_hash": "51a981607fa6ef86b2bfd0e293de9b7c48d0e57ceb764311824351bd5730a484",
+        "action_hash": "7d202ce83c9a0db2e61704c2193522f070c23e56d0685c7dee11e3be3820c222",
+        "policy_id": "LATTICE_CI_ELECTRIC_UTILITY",
+        "policy_version": "v1.0-reviewer-demo",
+        "verdict": "BLOCK",
+        "confidence": 40.0,
+        "reason_codes": [
+          "TARGET_OUT_OF_SCOPE",
+          "TARGET_NOT_IN_WORK_ORDER"
+        ]
+      },
+      "payload_hash": "f7d99b9db58ff63ca16b47512f2288047517fc25b24f46690c3181abb9a70c82",
+      "record_hash": "a6a74c704f9eadc7ef40eb38d630e1aa4c7261f9205ada13381785d0a2e7baa6",
+      "signature": {
+        "type": "stub",
+        "note": "Unsigned local audit record."
+      }
+    }
+  }
+]

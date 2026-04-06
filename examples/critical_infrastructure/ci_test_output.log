@@ -1,0 +1,59 @@
+========================================================================
+LATTICE CI Policy Bundle — Test Run
+Domain: Electric Utility Scheduled Switching Operations
+========================================================================
+
+--- Test Case 1: Bundle 1 — Routine breaker opening (expected: ALLOW) ---
+  Target:     SUB-47-BKR-001
+  Tool:       open_breaker
+  Composite:  0.95
+  [policy_engine.evaluate]
+    Verdict:     ALLOW
+    Confidence:  95.00
+    Reasons:     ['POLICY_ALLOW']
+  [execution_gate.enforce]
+    Gate verdict: ALLOW
+    Audit record ID: 019d632a-19f0-7fa6-8175-e77794f5f7ab
+    Unit hash:    490096037bac6ae2...
+  Policy verdict match: YES (got ALLOW, expected ALLOW)
+  Gate verdict match:   YES (got ALLOW, expected ALLOW)
+  Result: ** PASS **
+
+--- Test Case 2: Bundle 2 — Relay protection change, incomplete contingency (expected: ESCALATE) ---
+  Target:     SUB-47-BKR-002
+  Tool:       modify_relay_settings
+  Composite:  0.76
+  [policy_engine.evaluate]
+    Verdict:     ESCALATE
+    Confidence:  76.00
+    Reasons:     ['IRREVERSIBLE_ACTION_REQUIRES_HUMAN_REVIEW']
+  [execution_gate.enforce]
+    Gate verdict: BLOCK
+    Audit record ID: 019d632a-19f0-773d-b0e9-58f5c1eefc1e
+    Unit hash:    7974d69e90cc4243...
+  Policy verdict match: YES (got ESCALATE, expected ESCALATE)
+  Gate verdict match:   YES (got BLOCK, expected BLOCK)
+  Result: ** PASS **
+
+--- Test Case 3: Bundle 3 — Out-of-scope target (expected: BLOCK) ---
+  Target:     SUB-52-BKR-010
+  Tool:       open_breaker
+  Composite:  0.92
+  [policy_engine.evaluate]
+    Verdict:     BLOCK
+    Confidence:  40.00
+    Reasons:     ['TARGET_OUT_OF_SCOPE', 'TARGET_NOT_IN_WORK_ORDER']
+  [execution_gate.enforce]
+    Gate verdict: BLOCK
+    Audit record ID: 019d632a-19f0-78f1-83b2-1afc1b698442
+    Unit hash:    51a981607fa6ef86...
+  Policy verdict match: YES (got BLOCK, expected BLOCK)
+  Gate verdict match:   YES (got BLOCK, expected BLOCK)
+  Result: ** PASS **
+
+========================================================================
+SUMMARY: ALL PASSED
+========================================================================
+
+Audit trace (Bundle 1) written to: /sessions/intelligent-elegant-rubin/mnt/Desktop/AEGIS/ci_audit_trace_bundle1.json
+All audit traces written to: /sessions/intelligent-elegant-rubin/mnt/Desktop/AEGIS/ci_audit_traces_all.json

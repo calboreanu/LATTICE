@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/decision_tree.schema.json",
+  "title": "DecisionTree",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "start",
+    "nodes"
+  ],
+  "properties": {
+    "start": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "default"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "EXECUTE_STEP",
+            "ESCALATE_CONTAINMENT",
+            "SWITCH_COA",
+            "SAFE_STATE",
+            "END"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "default": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edge"
+          }
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "when",
+        "to"
+      ],
+      "properties": {
+        "when": {
+          "$ref": "#/$defs/edge_condition"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "edge_condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signal"
+      ],
+      "properties": {
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
