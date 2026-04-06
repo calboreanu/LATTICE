@@ -98,4 +98,3 @@ def parse_tripwire_contract(bundle: Dict[str, Any]) -> List[TripwirePredicate]:
             raise ValueError("; ".join(errors))
         out.append(parsed)
     return out
-

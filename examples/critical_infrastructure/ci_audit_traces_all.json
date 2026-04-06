@@ -1,7 +1,7 @@
 [
   {
     "test_case": 1,
-    "name": "Bundle 1 \u2014 Routine breaker opening (expected: ALLOW)",
+    "name": "Bundle 1 — Routine breaker opening (expected: ALLOW)",
     "gate_verdict": "ALLOW",
     "audit_record": {
       "event_type": "GOVERNANCE_VERDICT",
@@ -41,7 +41,7 @@
   },
   {
     "test_case": 2,
-    "name": "Bundle 2 \u2014 Relay protection change, incomplete contingency (expected: ESCALATE)",
+    "name": "Bundle 2 — Relay protection change, incomplete contingency (expected: ESCALATE)",
     "gate_verdict": "BLOCK",
     "audit_record": {
       "event_type": "GOVERNANCE_VERDICT",
@@ -81,7 +81,7 @@
   },
   {
     "test_case": 3,
-    "name": "Bundle 3 \u2014 Out-of-scope target (expected: BLOCK)",
+    "name": "Bundle 3 — Out-of-scope target (expected: BLOCK)",
     "gate_verdict": "BLOCK",
     "audit_record": {
       "event_type": "GOVERNANCE_VERDICT",

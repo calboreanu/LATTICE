@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/action_bundle.schema.json",
+  "title": "ActionBundle",
+  "type": "object",
+  "required": [
+    "bundle_id",
+    "target",
+    "tool",
+    "parameters",
+    "scope_tags",
+    "time_bound",
+    "evidence_plan"
+  ],
+  "properties": {
+    "bundle_id": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string",
+      "description": "CIDR, FQDN, host identifier, or other target reference."
+    },
+    "tool": {
+      "type": "string"
+    },
+    "tool_class": {
+      "type": "string",
+      "enum": [
+        "RECON",
+        "SCAN",
+        "ANALYSIS",
+        "SIMULATION",
+        "OTHER"
+      ],
+      "default": "OTHER"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "scope_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "time_bound": {
+      "type": "string",
+      "description": "ISO 8601 timestamp or date-time bound."
+    },
+    "data_handling": {
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "SENSITIVE"
+      ],
+      "default": "INTERNAL"
+    },
+    "expected_results": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "evidence_plan": {
+      "type": "object",
+      "required": [
+        "evidence_level"
+      ],
+      "properties": {
+        "evidence_level": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "BASIC",
+            "FULL"
+          ],
+          "default": "BASIC"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,66 @@
+{
+  "policy_id": "LATTICE_POLICY",
+  "version": "v5.2-final",
+  "allowed_targets": [
+    "example.local",
+    "10.0.0.0/24",
+    "lab-sim"
+  ],
+  "permitted_tools": {
+    "DEFAULT": [
+      "whois_lookup",
+      "dns_query",
+      "port_scan_sim",
+      "log_analyzer"
+    ],
+    "RECON": [
+      "whois_lookup",
+      "dns_query"
+    ],
+    "SCAN": [
+      "port_scan_sim"
+    ]
+  },
+  "thresholds": {
+    "autonomous": 85,
+    "hitl": 65,
+    "escalate": 45
+  },
+  "rules": [
+    {
+      "id": "R1_SCOPE_TARGET",
+      "if": {
+        "target_in_allowlist": true
+      },
+      "then": "CONTINUE"
+    },
+    {
+      "id": "R2_TOOL_ALLOWED",
+      "if": {
+        "tool_allowed": true
+      },
+      "then": "CONTINUE"
+    },
+    {
+      "id": "R3_DENY_DOS_CLASS",
+      "if": {
+        "tool_class_in": [
+          "DOS"
+        ]
+      },
+      "then": "BLOCK"
+    },
+    {
+      "id": "R4_DEFAULT",
+      "then": "ALLOW"
+    }
+  ],
+  "scope_limits": {
+    "max_rate_per_minute": 60,
+    "max_ports": 1024
+  },
+  "signature": {
+    "type": "stub",
+    "note": "Replace with real signing in production."
+  }
+}

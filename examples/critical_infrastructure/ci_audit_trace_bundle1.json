@@ -1,6 +1,6 @@
 {
   "test_case": 1,
-  "name": "Bundle 1 \u2014 Routine breaker opening (expected: ALLOW)",
+  "name": "Bundle 1 — Routine breaker opening (expected: ALLOW)",
   "gate_verdict": "ALLOW",
   "audit_record": {
     "event_type": "GOVERNANCE_VERDICT",

@@ -1,0 +1,27 @@
+{
+  "bundle_id": "AB-ALLOW-001",
+  "target": "example.local",
+  "tool": "dns_query",
+  "tool_class": "RECON",
+  "parameters": {
+    "qname": "example.local",
+    "qtype": "A"
+  },
+  "scope_tags": [
+    "LAB",
+    "SIMULATION"
+  ],
+  "time_bound": "2026-12-31T00:00:00Z",
+  "data_handling": "INTERNAL",
+  "expected_results": {
+    "records": [
+      "A"
+    ]
+  },
+  "evidence_plan": {
+    "evidence_level": "BASIC",
+    "artifacts": [
+      "stdout_log"
+    ]
+  }
+}
