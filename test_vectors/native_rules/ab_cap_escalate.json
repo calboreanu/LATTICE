@@ -1,0 +1,16 @@
+{
+  "bundle_id": "NR-CAP-001",
+  "target": "asset-001",
+  "tool": "adjust",
+  "tool_class": "OTHER",
+  "parameters": {},
+  "confidence_scores": {
+    "objective_clarity": 0.95, "tool_specificity": 0.95, "constraint_completeness": 0.95,
+    "risk_assessment_depth": 0.95, "precedent_availability": 0.95, "composite": 0.95
+  },
+  "scope_tags": [],
+  "time_bound": "2099-06-15T08:00:00Z",
+  "prerequisites_satisfied": ["isolation_verified"],
+  "irreversibility_class": "irreversible",
+  "evidence_plan": { "evidence_level": "BASIC" }
+}

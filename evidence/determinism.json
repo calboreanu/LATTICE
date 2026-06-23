@@ -1,0 +1,73 @@
+{
+  "configurations": 13,
+  "repeats_each": 10000,
+  "total_evaluations": 130000,
+  "verdict_deviations": 0,
+  "per_config": {
+    "clean_allow": {
+      "verdict": "ALLOW",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "out_of_scope_target": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "unpermitted_tool": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "mid_confidence_escalate": {
+      "verdict": "ESCALATE",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "low_confidence_block": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "target_denylist": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "tool_denylist": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "scope_tag_escalate": {
+      "verdict": "ESCALATE",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "time_window_outside": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "prerequisite_missing": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "confidence_cap_irreversible": {
+      "verdict": "ESCALATE",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "composite_divergence": {
+      "verdict": "ESCALATE",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    },
+    "fail_closed_missing_component": {
+      "verdict": "BLOCK",
+      "distinct_verdicts": 1,
+      "repeats": 10000
+    }
+  }
+}

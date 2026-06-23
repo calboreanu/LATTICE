@@ -32,15 +32,37 @@ class ConfidenceOutcome:
     reason_codes: List[str]
 
 
+def _parse_iso(value: str) -> datetime:
+    # Accept 'Z' suffix as UTC; return a tz-aware UTC datetime.
+    tb = str(value).replace("Z", "+00:00")
+    return datetime.fromisoformat(tb).astimezone(timezone.utc)
+
+
 def _is_time_valid(time_bound: str) -> bool:
     try:
-        # Accept 'Z' suffix as UTC
-        tb = time_bound.replace("Z", "+00:00")
-        bound = datetime.fromisoformat(tb)
-        now = datetime.now(timezone.utc)
-        return now <= bound.astimezone(timezone.utc)
+        return datetime.now(timezone.utc) <= _parse_iso(time_bound)
     except Exception:
         return False
+
+
+def _within_time_window(time_value: str, window: Dict[str, Any]) -> bool:
+    """True if time_value falls within [start, end] inclusive; an absent bound is open-ended."""
+    if not isinstance(window, dict):
+        return False
+    try:
+        t = _parse_iso(time_value)
+    except Exception:
+        return False
+    start = window.get("start")
+    end = window.get("end")
+    try:
+        if start and t < _parse_iso(start):
+            return False
+        if end and t > _parse_iso(end):
+            return False
+    except Exception:
+        return False
+    return True
 
 
 def _to_str_set(values: Any) -> Set[str]:
@@ -124,6 +146,65 @@ def _compute_confidence_outcome(action_bundle: Dict[str, Any], policy: Dict[str,
     return ConfidenceOutcome(composite * 100.0, reasons)
 
 
+_DEFAULT_IRREVERSIBILITY_CAPS = {"reversible": 1.0, "partial": 0.85, "irreversible": 0.70}
+
+
+def _clamp01(x: float) -> float:
+    return 0.0 if x < 0.0 else 1.0 if x > 1.0 else x
+
+
+def _compute_confidence_cap(action_bundle: Dict[str, Any], policy: Dict[str, Any]):
+    """Deterministic, governance-derived ceiling on effective confidence (R6).
+
+    Returns ``(cap_fraction in [0,1], binding_feature | None)``. The cap is the
+    most conservative ceiling across governance-observable features; every value
+    comes from the policy bundle's ``confidence_caps`` block, so the cap is
+    auditable and tunable rather than a hidden heuristic. Absent config => no
+    constraint (backward compatible). Because the cap is derived from
+    governance-observable attributes -- not the planner's self-report -- a
+    miscalibrated or adversarial planner cannot lift it by inflating its score.
+    """
+    caps = policy.get("confidence_caps")
+    if not isinstance(caps, dict) or not caps:
+        return 1.0, None
+
+    ceilings: Dict[str, float] = {}
+
+    irr_map = caps.get("irreversibility", _DEFAULT_IRREVERSIBILITY_CAPS)
+    if isinstance(irr_map, dict):
+        cls = str(action_bundle.get("irreversibility_class", "reversible")).lower()
+        ceilings["irreversibility"] = _clamp01(float(irr_map.get(cls, 1.0)))
+
+    priv_map = caps.get("privilege")
+    if isinstance(priv_map, dict):
+        tc = str(action_bundle.get("tool_class", "OTHER"))
+        if tc in priv_map:
+            ceilings["privilege"] = _clamp01(float(priv_map[tc]))
+
+    if "novelty_cap" in caps:
+        scores = action_bundle.get("confidence_scores", {})
+        precedent = scores.get("precedent_availability") if isinstance(scores, dict) else None
+        thresh = float(caps.get("novelty_precedent_threshold", 0.5))
+        try:
+            if precedent is not None and float(precedent) < thresh:
+                ceilings["novelty"] = _clamp01(float(caps["novelty_cap"]))
+        except Exception:
+            pass
+
+    if "cross_cell_cap" in caps and action_bundle.get("cross_cell_scope"):
+        ceilings["cross_cell"] = _clamp01(float(caps["cross_cell_cap"]))
+
+    if "contingency_cap" in caps:
+        has_contingency = bool(action_bundle.get("rollback_plan")) and bool(action_bundle.get("impact_assessment"))
+        if not has_contingency:
+            ceilings["contingency"] = _clamp01(float(caps["contingency_cap"]))
+
+    if not ceilings:
+        return 1.0, None
+    binding = min(ceilings, key=ceilings.get)
+    return ceilings[binding], binding
+
+
 def _confidence_tier(score: float, thresholds: Dict[str, float]) -> str:
     if score >= thresholds["autonomous"]:
         return "AUTONOMOUS"
@@ -140,6 +221,7 @@ def _evaluate_rule(
     target: str,
     tool: str,
     scope_tags: Set[str],
+    action_bundle: Dict[str, Any],
 ) -> RuleOutcome:
     rule_type = str(rule.get("type", "")).upper()
     effect = str(rule.get("effect", "BLOCK")).upper()
@@ -160,6 +242,20 @@ def _evaluate_rule(
         triggered = target not in values
     elif rule_type == "TOOL_ALLOWLIST":
         triggered = tool not in values
+    elif rule_type == "TIME_WINDOW":
+        # Hard maintenance/execution-window enforcement: triggers when the action's
+        # time_bound falls OUTSIDE the permitted window. Default effect BLOCK.
+        triggered = not _within_time_window(str(action_bundle.get("time_bound", "")), rule.get("window", {}))
+        if reason_code == f"RULE_{rule_type}_TRIGGERED":
+            reason_code = "TIME_WINDOW_VIOLATION"
+    elif rule_type == "PREREQUISITE":
+        # Hard prerequisite gating (e.g., verify upstream isolation before downstream
+        # switching): triggers when any required prerequisite is not satisfied.
+        required = _to_str_set(rule.get("requires", rule.get("values", [])))
+        satisfied = _to_str_set(action_bundle.get("prerequisites_satisfied", []))
+        triggered = bool(required - satisfied)
+        if reason_code == f"RULE_{rule_type}_TRIGGERED":
+            reason_code = "PREREQUISITE_NOT_MET"
     else:
         return RuleOutcome("ESCALATE", 0.0, f"RULE_TYPE_UNSUPPORTED:{rule_type}")
 
@@ -184,6 +280,8 @@ def evaluate(action_bundle: Dict[str, Any], policy: Dict[str, Any]) -> VerdictRe
     - TARGET_DENYLIST / TARGET_ALLOWLIST
     - TOOL_DENYLIST / TOOL_ALLOWLIST
     - SCOPE_TAG_DENYLIST
+    - TIME_WINDOW (maintenance/execution-window enforcement)
+    - PREREQUISITE (hard prerequisite gating)
     Effects:
     - BLOCK | ESCALATE | SCORE
     """
@@ -218,7 +316,14 @@ def evaluate(action_bundle: Dict[str, Any], policy: Dict[str, Any]) -> VerdictRe
         score -= 80.0
 
     confidence = _compute_confidence_outcome(action_bundle, policy)
-    score = min(score, confidence.score)
+    cap_fraction, cap_feature = _compute_confidence_cap(action_bundle, policy)
+    effective_confidence = min(confidence.score, cap_fraction * 100.0)
+    if effective_confidence < confidence.score:
+        # Governance-derived cap binds: c_eff = min(c_p, c_cap). Recording a reason
+        # also removes the action from autonomous ALLOW (which requires an empty
+        # reason set), routing it to human review.
+        reasons.append(f"CONFIDENCE_CAP_APPLIED:{cap_feature}")
+    score = min(score, effective_confidence)
     reasons.extend(confidence.reason_codes)
 
     block_reasons: List[str] = []
@@ -235,6 +340,7 @@ def evaluate(action_bundle: Dict[str, Any], policy: Dict[str, Any]) -> VerdictRe
                 target=str(target),
                 tool=str(tool),
                 scope_tags={str(t) for t in scope_tags},
+                action_bundle=action_bundle,
             )
             if outcome.verdict == "BLOCK":
                 block_reasons.append(outcome.reason_code)
@@ -244,6 +350,10 @@ def evaluate(action_bundle: Dict[str, Any], policy: Dict[str, Any]) -> VerdictRe
                 rule_score_delta += outcome.score_delta
                 if outcome.reason_code:
                     reasons.append(outcome.reason_code)
+    else:
+        # Fail closed: a malformed (non-list) rules container is a structurally
+        # invalid policy; do not silently skip enforcement.
+        block_reasons.append("POLICY_RULES_INVALID")
 
     score += rule_score_delta
     score = max(0.0, min(100.0, score))

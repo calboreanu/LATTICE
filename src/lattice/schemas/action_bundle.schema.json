@@ -92,6 +92,32 @@
       "type": "string",
       "description": "ISO 8601 timestamp or date-time bound."
     },
+    "prerequisites_satisfied": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Prerequisite checks satisfied for this action; consumed by PREREQUISITE policy rules."
+    },
+    "irreversibility_class": {
+      "type": "string",
+      "enum": ["reversible", "partial", "irreversible"],
+      "default": "reversible",
+      "description": "Reversibility of the action; consumed by the confidence cap (R6)."
+    },
+    "cross_cell_scope": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the action's effects span multiple Grid Cells."
+    },
+    "rollback_plan": {
+      "type": ["object", "boolean"],
+      "description": "Presence indicates an attached rollback/contingency plan (confidence cap)."
+    },
+    "impact_assessment": {
+      "type": ["object", "boolean"],
+      "description": "Presence indicates an attached impact assessment (confidence cap)."
+    },
     "data_handling": {
       "type": "string",
       "enum": [

@@ -1,0 +1,63 @@
+{
+  "domains": [
+    "offensive_security",
+    "electric_utility_switching",
+    "clinical_infusion"
+  ],
+  "native_hard_safety_rules": [
+    "TIME_WINDOW",
+    "PREREQUISITE"
+  ],
+  "results": [
+    {
+      "case": "electric_allow",
+      "verdict": "ALLOW",
+      "expected": "ALLOW",
+      "pass": true
+    },
+    {
+      "case": "electric_outside_window",
+      "verdict": "ESCALATE",
+      "expected": "ESCALATE",
+      "pass": true
+    },
+    {
+      "case": "electric_missing_prereq",
+      "verdict": "BLOCK",
+      "expected": "BLOCK",
+      "pass": true
+    },
+    {
+      "case": "electric_out_of_scope",
+      "verdict": "BLOCK",
+      "expected": "BLOCK",
+      "pass": true
+    },
+    {
+      "case": "electric_irreversible",
+      "verdict": "ESCALATE",
+      "expected": "ESCALATE",
+      "pass": true
+    },
+    {
+      "case": "clinical_allow",
+      "verdict": "ALLOW",
+      "expected": "ALLOW",
+      "pass": true
+    },
+    {
+      "case": "clinical_missing_signoff",
+      "verdict": "BLOCK",
+      "expected": "BLOCK",
+      "pass": true
+    },
+    {
+      "case": "clinical_wrong_patient",
+      "verdict": "BLOCK",
+      "expected": "BLOCK",
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "total": 8
+}

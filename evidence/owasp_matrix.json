@@ -1,0 +1,66 @@
+{
+  "matrix": [
+    {
+      "id": "ASI01",
+      "risk": "Agent Goal Hijack",
+      "mechanism": "policy-as-code scope evaluation",
+      "status": "tested"
+    },
+    {
+      "id": "ASI02",
+      "risk": "Tool Misuse & Exploitation",
+      "mechanism": "gated execution (ALLOW-only)",
+      "status": "tested"
+    },
+    {
+      "id": "ASI03",
+      "risk": "Identity & Privilege Abuse",
+      "mechanism": "privilege confidence cap",
+      "status": "tested"
+    },
+    {
+      "id": "ASI04",
+      "risk": "Supply Chain",
+      "mechanism": "content-addressed + signed bundles",
+      "status": "partial"
+    },
+    {
+      "id": "ASI05",
+      "risk": "Unexpected Code Execution",
+      "mechanism": "tool denylist / gate",
+      "status": "tested"
+    },
+    {
+      "id": "ASI06",
+      "risk": "Memory & Context Poisoning",
+      "mechanism": "confidence divergence + shared-state quorum",
+      "status": "tested"
+    },
+    {
+      "id": "ASI07",
+      "risk": "Insecure Inter-Agent Comms",
+      "mechanism": "coordination mutual auth",
+      "status": "tested"
+    },
+    {
+      "id": "ASI08",
+      "risk": "Cascading Failures",
+      "mechanism": "escalation rate-limit + fan-out detect",
+      "status": "tested"
+    },
+    {
+      "id": "ASI09",
+      "risk": "Human-Agent Trust Exploitation",
+      "mechanism": "policy-derived verdict + cap",
+      "status": "tested"
+    },
+    {
+      "id": "ASI10",
+      "risk": "Rogue Agents",
+      "mechanism": "non-bypassable gate reachability",
+      "status": "tested"
+    }
+  ],
+  "tested": 9,
+  "partial": 1
+}

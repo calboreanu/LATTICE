@@ -1,0 +1,121 @@
+{
+  "vectors": 21,
+  "bypasses": 0,
+  "clopper_pearson_95_upper_bound": 0.1329,
+  "categories": [
+    "audit",
+    "confidence",
+    "scope",
+    "structural",
+    "time",
+    "toctou",
+    "tool"
+  ],
+  "results": [
+    {
+      "vector": "out_of_scope_target",
+      "category": "scope",
+      "blocked": true
+    },
+    {
+      "vector": "wildcard_target_injection",
+      "category": "scope",
+      "blocked": true
+    },
+    {
+      "vector": "empty_target",
+      "category": "scope",
+      "blocked": true
+    },
+    {
+      "vector": "empty_allowlist",
+      "category": "scope",
+      "blocked": true
+    },
+    {
+      "vector": "unpermitted_tool",
+      "category": "tool",
+      "blocked": true
+    },
+    {
+      "vector": "tool_class_escalation",
+      "category": "tool",
+      "blocked": true
+    },
+    {
+      "vector": "empty_tool_list",
+      "category": "tool",
+      "blocked": true
+    },
+    {
+      "vector": "expired_time",
+      "category": "time",
+      "blocked": true
+    },
+    {
+      "vector": "malformed_time",
+      "category": "time",
+      "blocked": true
+    },
+    {
+      "vector": "empty_time",
+      "category": "time",
+      "blocked": true
+    },
+    {
+      "vector": "inflated_over_one",
+      "category": "confidence",
+      "blocked": true
+    },
+    {
+      "vector": "negative_confidence",
+      "category": "confidence",
+      "blocked": true
+    },
+    {
+      "vector": "missing_component",
+      "category": "confidence",
+      "blocked": true
+    },
+    {
+      "vector": "non_numeric_confidence",
+      "category": "confidence",
+      "blocked": true
+    },
+    {
+      "vector": "list_typed_confidence",
+      "category": "confidence",
+      "blocked": true
+    },
+    {
+      "vector": "malformed_decision_tree",
+      "category": "structural",
+      "blocked": true
+    },
+    {
+      "vector": "dangling_tree_edge",
+      "category": "structural",
+      "blocked": true
+    },
+    {
+      "vector": "duplicate_tripwire_ids",
+      "category": "structural",
+      "blocked": true
+    },
+    {
+      "vector": "toctou_post_submit_mutation",
+      "category": "toctou",
+      "blocked": true
+    },
+    {
+      "vector": "missing_audit_signer",
+      "category": "audit",
+      "blocked": true
+    },
+    {
+      "vector": "policy_type_confusion",
+      "category": "audit",
+      "blocked": true
+    }
+  ]
+}

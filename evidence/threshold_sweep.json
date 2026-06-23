@@ -1,0 +1,81 @@
+{
+  "total_points": 3003,
+  "resolution": 0.001,
+  "tiers": {
+    "solo": {
+      "thresholds": {
+        "autonomous": 95,
+        "hitl": 70,
+        "escalate": 70
+      },
+      "points": 1001,
+      "distribution_pct": {
+        "ALLOW": 5.1,
+        "ESCALATE": 25.0,
+        "BLOCK": 69.9
+      },
+      "transitions": [
+        {
+          "at_confidence": 0.7,
+          "from": "BLOCK",
+          "to": "ESCALATE"
+        },
+        {
+          "at_confidence": 0.95,
+          "from": "ESCALATE",
+          "to": "ALLOW"
+        }
+      ]
+    },
+    "team": {
+      "thresholds": {
+        "autonomous": 85,
+        "hitl": 65,
+        "escalate": 45
+      },
+      "points": 1001,
+      "distribution_pct": {
+        "ALLOW": 15.1,
+        "ESCALATE": 40.0,
+        "BLOCK": 45.0
+      },
+      "transitions": [
+        {
+          "at_confidence": 0.45,
+          "from": "BLOCK",
+          "to": "ESCALATE"
+        },
+        {
+          "at_confidence": 0.85,
+          "from": "ESCALATE",
+          "to": "ALLOW"
+        }
+      ]
+    },
+    "squadron": {
+      "thresholds": {
+        "autonomous": 85,
+        "hitl": 50,
+        "escalate": 50
+      },
+      "points": 1001,
+      "distribution_pct": {
+        "ALLOW": 15.1,
+        "ESCALATE": 35.0,
+        "BLOCK": 50.0
+      },
+      "transitions": [
+        {
+          "at_confidence": 0.5,
+          "from": "BLOCK",
+          "to": "ESCALATE"
+        },
+        {
+          "at_confidence": 0.85,
+          "from": "ESCALATE",
+          "to": "ALLOW"
+        }
+      ]
+    }
+  }
+}

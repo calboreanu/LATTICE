@@ -1,0 +1,6 @@
+{
+  "NR-ALLOW-001": { "verdict": "ALLOW" },
+  "NR-TW-001": { "verdict": "ESCALATE", "reason": "OUTSIDE_WINDOW" },
+  "NR-PR-001": { "verdict": "BLOCK", "reason": "PREREQ_MISSING" },
+  "NR-CAP-001": { "verdict": "ESCALATE", "reason": "CONFIDENCE_CAP_APPLIED:irreversibility" }
+}

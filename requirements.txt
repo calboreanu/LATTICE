@@ -1,1 +1,16 @@
-# This reference implementation uses only the Python standard library.
+# LATTICE reference pipeline — dependencies
+#
+# Core runtime (execution gate / audit canonicalization):
+rfc8785>=0.1.2        # RFC 8785 JSON Canonicalization Scheme (deterministic hashing)
+#
+# Schema validation (run_demo + schema tests):
+jsonschema>=4.20      # JSON Schema Draft 2020-12 validator (Draft202012Validator); matches pyproject.toml
+#
+# Tests:
+pytest>=7.0
+#
+# Note: the deterministic core (policy_engine.evaluate — including the 7 native
+# rule types and the confidence cap — plus coordination_security, authorization,
+# policy_linter, and key_management) imports only the Python standard library.
+# The dependencies above are required for the gate path, schema validation, and
+# the test suite.

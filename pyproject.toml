@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lattice-governance"
-version = "1.0.0"
+version = "1.1.0"
 description = "LATTICE: A Governance-First Architecture for Autonomous AI Agent Authorization"
 readme = "README.md"
 license = {text = "Apache-2.0"}

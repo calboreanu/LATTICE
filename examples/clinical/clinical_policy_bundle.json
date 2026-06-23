@@ -1,0 +1,54 @@
+{
+  "policy_id": "CLINICAL_INFUSION",
+  "version": "1.0",
+  "domain": "clinical_infusion",
+  "allowed_targets": [
+    "PATIENT-101:PUMP-A"
+  ],
+  "permitted_tools": {
+    "DEFAULT": [
+      "adjust_infusion_rate"
+    ],
+    "OTHER": [
+      "adjust_infusion_rate"
+    ]
+  },
+  "thresholds": {
+    "autonomous": 0.95,
+    "hitl": 0.75,
+    "escalate": 0.5
+  },
+  "rules": [
+    {
+      "type": "TARGET_ALLOWLIST",
+      "effect": "BLOCK",
+      "values": [
+        "PATIENT-101:PUMP-A"
+      ],
+      "reason_code": "WRONG_PATIENT_OR_DEVICE"
+    },
+    {
+      "type": "TIME_WINDOW",
+      "effect": "ESCALATE",
+      "window": {
+        "start": "2026-06-15T00:00:00Z",
+        "end": "2026-06-15T23:59:59Z"
+      },
+      "reason_code": "OUTSIDE_TREATMENT_WINDOW"
+    },
+    {
+      "type": "PREREQUISITE",
+      "effect": "BLOCK",
+      "requires": [
+        "second_clinician_signoff",
+        "allergy_check_complete"
+      ],
+      "reason_code": "CLINICAL_PREREQ_MISSING"
+    }
+  ],
+  "confidence_caps": {
+    "irreversibility": {
+      "irreversible": 0.7
+    }
+  }
+}

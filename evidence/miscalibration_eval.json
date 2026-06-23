@@ -1,0 +1,68 @@
+{
+  "grid": [
+    0.6,
+    0.7,
+    0.8,
+    0.86,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "models": [
+    "honest",
+    "inflated_within",
+    "inflated_beyond",
+    "under_report"
+  ],
+  "classes": [
+    "low_reversible",
+    "medium_partial",
+    "high_irreversible",
+    "high_no_contingency",
+    "high_cross_cell",
+    "high_combo"
+  ],
+  "tally": {
+    "honest|cap=off": {
+      "allow_rate": 0.571,
+      "high_consequence_allow_rate": 0.571,
+      "low_consequence_allow_rate": 0.571
+    },
+    "honest|cap=on": {
+      "allow_rate": 0.095,
+      "high_consequence_allow_rate": 0.0,
+      "low_consequence_allow_rate": 0.571
+    },
+    "inflated_within|cap=off": {
+      "allow_rate": 0.714,
+      "high_consequence_allow_rate": 0.714,
+      "low_consequence_allow_rate": 0.714
+    },
+    "inflated_within|cap=on": {
+      "allow_rate": 0.119,
+      "high_consequence_allow_rate": 0.0,
+      "low_consequence_allow_rate": 0.714
+    },
+    "inflated_beyond|cap=off": {
+      "allow_rate": 0.571,
+      "high_consequence_allow_rate": 0.571,
+      "low_consequence_allow_rate": 0.571
+    },
+    "inflated_beyond|cap=on": {
+      "allow_rate": 0.095,
+      "high_consequence_allow_rate": 0.0,
+      "low_consequence_allow_rate": 0.571
+    },
+    "under_report|cap=off": {
+      "allow_rate": 0.0,
+      "high_consequence_allow_rate": 0.0,
+      "low_consequence_allow_rate": 0.0
+    },
+    "under_report|cap=on": {
+      "allow_rate": 0.0,
+      "high_consequence_allow_rate": 0.0,
+      "low_consequence_allow_rate": 0.0
+    }
+  },
+  "divergence_catch_rate_inflated_beyond": 0.429
+}

@@ -1,0 +1,28 @@
+{
+  "tier1_public_reproducible": {
+    "determinism": {
+      "total_evaluations": 130000,
+      "verdict_deviations": 0
+    },
+    "threshold_sweep": {
+      "total_points": 3003,
+      "team_distribution_pct": {
+        "ALLOW": 15.1,
+        "ESCALATE": 40.0,
+        "BLOCK": 45.0
+      }
+    },
+    "adversarial": {
+      "bypasses": 0,
+      "vectors": 21,
+      "clopper_pearson_95_upper_bound": 0.1329
+    },
+    "confidence_cap": {
+      "high_consequence_allow_cap_off": 0.571,
+      "high_consequence_allow_cap_on": 0.0
+    }
+  },
+  "tier2_aegis_measured": {
+    "latency": "p50 policy-eval / full-gate / cryptographic ops \u2014 measured on the AEGIS host; not reproduced here"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "policy_id": "LATTICE_NATIVE_RULES_DEMO",
+  "version": "v1.1",
+  "allowed_targets": ["asset-001"],
+  "permitted_tools": { "DEFAULT": ["adjust"], "OTHER": ["adjust"] },
+  "thresholds": { "autonomous": 85, "hitl": 65, "escalate": 45 },
+  "rules": [
+    { "type": "TARGET_ALLOWLIST", "effect": "BLOCK", "values": ["asset-001"], "reason_code": "OUT_OF_SCOPE" },
+    { "type": "TIME_WINDOW", "effect": "ESCALATE", "window": { "start": "2099-06-15T06:00:00Z", "end": "2099-06-15T18:00:00Z" }, "reason_code": "OUTSIDE_WINDOW" },
+    { "type": "PREREQUISITE", "effect": "BLOCK", "requires": ["isolation_verified"], "reason_code": "PREREQ_MISSING" }
+  ],
+  "confidence_caps": { "irreversibility": { "reversible": 1.0, "partial": 0.85, "irreversible": 0.70 } }
+}
